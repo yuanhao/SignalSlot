@@ -45,7 +45,7 @@ document.write('<p><b>Javascript version ' + jsver
     var opts1 = {
         evt: 'click',
         prefunc: function() {
-                    alert("check for the status of #test_sig_2 now...");
+                    alert("check the status of #test_sig_2 now...");
                     alert("This element is " + this.id);
                     if ($("#test_sig_2").is(":hidden")) {
                         return false;
@@ -54,7 +54,7 @@ document.write('<p><b>Javascript version ' + jsver
                     }
                  },
         callback: function() {
-                alert("callback if after the signal emitted...");
+                alert("callback after the signal emitted...");
                 alert("This element is " + this.id);
             }
     }
@@ -62,7 +62,7 @@ document.write('<p><b>Javascript version ' + jsver
     var opts2 = {
         evt: 'click',
         prefunc: function() {
-                    alert("check for the status of #test_sig_2 now...");
+                    alert("check the status of #test_sig_2 now...");
                     alert("This element is " + this.id);
                     if ($("#test_sig_2").is(":hidden")) {
                         return true;
@@ -71,7 +71,7 @@ document.write('<p><b>Javascript version ' + jsver
                     }
                  },
         callback: function() {
-                alert("callback if after the signal emitted...");
+                alert("callback after the signal emitted...");
                 alert("This element is " + this.id);
             }
     }
@@ -100,7 +100,7 @@ document.write('<p><b>Javascript version ' + jsver
             alert("Slot callback for " + SIGNAL_SLIDEDOWN2);
             $("#test_sig_2").slideDown();
             alert(txt);
-            $(elem_id).text("I emited the signal, oh yeah...");
+            $(elem_id).text("The signal emited, oh yeah...");
         },
         false
     );
