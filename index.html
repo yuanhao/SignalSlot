@@ -1,77 +1,139 @@
-<!DOCTYPE html>
+<?xml version="1.0"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+                    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta charset='utf-8'>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://raw.github.com/yuanhao/SignalSlot/master/jquery.signalslot.js"></script>
 
-  <title>yuanhao/SignalSlot @ GitHub</title>
+<script type="text/javascript">
+var jsver = 1.0;
+</script>
+<script language="Javascript1.1">
+jsver = 1.1;
+</script>
+<script language="Javascript1.2">
+jsver = 1.2;
+</script>
+<script language="Javascript1.3">
+jsver = 1.3;
+</script>
+<script language="Javascript1.4">
+jsver = 1.4;
+</script>
+<script language="Javascript1.5">
+jsver = 1.5;
+</script>
+<script language="Javascript1.6">
+jsver = 1.6;
+</script>
+<script type="text/javascript">
+document.write('<p><b>Javascript version ' + jsver
++ ' supported<\/b><\/p>');
+</script>
+  
+  <script>
+  $(document).ready(function(){
+    var SIGNAL_SLIDEUP2 = "slideup2";
+    var SIGNAL_SLIDEDOWN2 = "slidedown2";
+    var SIGNAL_TOGGLE = "toggle";
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #008ab3;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #ffffff;
+    var opts3 = {
+        evt: 'click'
+        } 
+
+    var opts1 = {
+        evt: 'click',
+        prefunc: function() {
+                    alert("check for the status of #test_sig_2 now...");
+                    alert("This element is " + this.id);
+                    if ($("#test_sig_2").is(":hidden")) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                 },
+        callback: function() {
+                alert("callback if after the signal emitted...");
+                alert("This element is " + this.id);
+            }
     }
-    #container {
-      margin: 0 auto;
-      width: 700px;
+
+    var opts2 = {
+        evt: 'click',
+        prefunc: function() {
+                    alert("check for the status of #test_sig_2 now...");
+                    alert("This element is " + this.id);
+                    if ($("#test_sig_2").is(":hidden")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                 },
+        callback: function() {
+                alert("callback if after the signal emitted...");
+                alert("This element is " + this.id);
+            }
     }
-    h1 { font-size: 3.8em; color: #ff754c; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #ff754c; }
-    h3 { text-align: center; color: #ff754c; }
-    a { color: #ff754c; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+    $("#test_sig_1").signal(SIGNAL_SLIDEUP2, "second paragraph slided up", opts1);
+    $("#test_sig_3").signal(
+        SIGNAL_SLIDEDOWN2,
+        ["second paragraph slided down", "#test_sig_3"],
+        opts2
+    );
+
+    $("#test_sig_2").signal(SIGNAL_TOGGLE, "first paragraph toggled slide", opts3);
+
+    $.slot.add(
+        SIGNAL_SLIDEUP2,
+        function(txt) {
+            alert("Slot callback for " + SIGNAL_SLIDEUP2);
+            $("#test_sig_2").slideUp();
+            alert(txt);
+        },
+        false
+    );
+
+    $.slot.add(
+        SIGNAL_SLIDEDOWN2,
+        function(txt, elem_id) {
+            alert("Slot callback for " + SIGNAL_SLIDEDOWN2);
+            $("#test_sig_2").slideDown();
+            alert(txt);
+            $(elem_id).text("I emited the signal, oh yeah...");
+        },
+        false
+    );
+
+    $(".toggleme").slot(
+        SIGNAL_TOGGLE,
+        function(txt) {
+            if ($(this).is(":hidden")) {
+                $(this).slideDown();
+            } else {
+                $(this).slideUp();
+            }
+        }
+    );
+  });
+  </script>
+  <style>
+  p { color:red; margin:5px; cursor:pointer; }
+  p.hilite { background:yellow; }
   </style>
 </head>
-
 <body>
-  <a href="http://github.com/yuanhao/SignalSlot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <p id="test_sig_1" class="toggleme">First Paragraph</p>
+  <p id="test_sig_2">Second Paragraph</p>
+  <p id="test_sig_3">Yet one more Paragraph</p>
 
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/yuanhao/SignalSlot/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/yuanhao/SignalSlot/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/yuanhao/SignalSlot">SignalSlot</a>
-      <span class="small">by <a href="http://github.com/yuanhao">yuanhao</a></span></h1>
-
-    <div class="description">
-      A simple signal slot plugin for JQuery 
-    </div>
-
-    <h2>Authors</h2>
-<p>Yuanhao Li (jay_21cn@hotmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Yuanhao Li (jay_21cn@hotmail.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/yuanhao/SignalSlot/zipball/master">zip</a> or
-      <a href="http://github.com/yuanhao/SignalSlot/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/yuanhao/SignalSlot</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/yuanhao/SignalSlot">yuanhao/SignalSlot</a>
-    </div>
-
-  </div>
-
-  
+  <h1> test bulk slots </h1>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
+  <div id="test_sig_1" class="toggleme" style="float:left; margin-right: 4em; ">Hallo Slot!</div>
 </body>
 </html>
