@@ -45,8 +45,10 @@ document.write('<p><b>Javascript version ' + jsver
     var opts1 = {
         evt: 'click',
         prefunc: function() {
+                    /*
                     alert("check the status of #test_sig_2 now...");
                     alert("This element is " + this.id);
+                    */
                     if ($("#test_sig_2").is(":hidden")) {
                         return false;
                     } else {
@@ -54,16 +56,16 @@ document.write('<p><b>Javascript version ' + jsver
                     }
                  },
         callback: function() {
-                alert("callback after the signal emitted...");
-                alert("This element is " + this.id);
+                // alert("callback after the signal emitted...");
+                // alert("This element is " + this.id);
             }
     }
 
     var opts2 = {
         evt: 'click',
         prefunc: function() {
-                    alert("check the status of #test_sig_2 now...");
-                    alert("This element is " + this.id);
+                    // alert("check the status of #test_sig_2 now...");
+                    // alert("This element is " + this.id);
                     if ($("#test_sig_2").is(":hidden")) {
                         return true;
                     } else {
@@ -71,8 +73,8 @@ document.write('<p><b>Javascript version ' + jsver
                     }
                  },
         callback: function() {
-                alert("callback after the signal emitted...");
-                alert("This element is " + this.id);
+                // alert("callback after the signal emitted...");
+                // alert("This element is " + this.id);
             }
     }
     $("#test_sig_1").signal(SIGNAL_SLIDEUP2, "second paragraph slided up", opts1);
@@ -87,9 +89,9 @@ document.write('<p><b>Javascript version ' + jsver
     $.slot.add(
         SIGNAL_SLIDEUP2,
         function(txt) {
-            alert("Slot callback for " + SIGNAL_SLIDEUP2);
+            // alert("Slot callback for " + SIGNAL_SLIDEUP2);
             $("#test_sig_2").slideUp();
-            alert(txt);
+            // alert(txt);
         },
         false
     );
@@ -97,9 +99,9 @@ document.write('<p><b>Javascript version ' + jsver
     $.slot.add(
         SIGNAL_SLIDEDOWN2,
         function(txt, elem_id) {
-            alert("Slot callback for " + SIGNAL_SLIDEDOWN2);
+            // alert("Slot callback for " + SIGNAL_SLIDEDOWN2);
             $("#test_sig_2").slideDown();
-            alert(txt);
+            // alert(txt);
             $(elem_id).text("The signal emited, oh yeah...");
         },
         false
