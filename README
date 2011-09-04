@@ -1,0 +1,71 @@
+What is Signal Slot?
+
+
+Signals and slots is a language construct introduced in Qt, which makes it easy to implement the Observer pattern while avoiding boilerplate code. The concept is that controls (also known as widgets) can send signals containing event information (e.g. the text "toto" was selected, the scrollbar has been adjusted to value 37) which can be received by other controls using special functions known as slots. [wiki]
+
+
+With this simple signal slot plugin for jQuery you can take this feature of Qt into your webapp.
+
+
+This plugin was finished in 2008 and inspired by Qt and the another jQuery Plugin by AJ
+
+
+
+Usage
+
+
+Define your Signal
+
+var SIGNAL = "A Signal";
+
+var optionsForSignal = {
+    evt: 'click',
+    prefunc: function() {
+         // conditions for emitting of this signal
+      },
+    callback: function() {
+        // callback after the signal emitted
+      }
+  }
+
+$("#elementID").signal(SIGNAL, "Argument for Slot", optionsForSignal);
+$("#elementID").signal(
+    SIGNAL,
+    ["Arg1", "#Arg2"], // If you have more than one arguments of Slot
+    optionsForSignal
+);
+
+
+
+Define your Slot
+
+
+// add slot method 1
+$.slot.add(
+    SIGNAL,
+    function(arg1, args2, ...) {
+      // what to do if this slot called
+    },
+    false // a boolean to indicate if this slot should repeated
+);
+
+// add slot method 2
+$(".toggleme").slot(
+    SIGNAL,
+    function(arg1, arg2, ... ) {
+      // example 
+      if ($(this).is(":hidden")) {
+        $(this).slideDown();
+      } else {
+        $(this).slideUp();
+      }
+    }
+);
+
+
+
+Example
+
+
+Check out the example: http://yuanhao.github.com/SignalSlot/
+And the source of the example: https://github.com/yuanhao/SignalSlot/blob/gh-pages/index.html
